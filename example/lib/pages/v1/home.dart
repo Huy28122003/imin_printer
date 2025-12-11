@@ -4,6 +4,7 @@ import 'package:imin_printer/imin_printer.dart';
 import 'package:imin_printer/enums.dart';
 import 'package:imin_printer/imin_style.dart';
 import 'package:imin_printer/column_maker.dart';
+import 'package:imin_printer_example/pages/v1/value.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -162,12 +163,10 @@ class _HomeState extends State<Home> {
                       child: const Text('Text style')),
                   ElevatedButton(
                       onPressed: () async {
-                        await iminPrinter
-                          ..printSingleBitmap(
-                              'https://oss-sg.imin.sg/web/iMinPartner2/images/logo.png',
+                        iminPrinter
+                          ..printSingleBitmap(data,
                               pictureStyle: IminPictureStyle(
-                                width: 250,
-                                height: 50,
+                                width: 576,
                               ))
                           ..sendRAWDataHexStr("0A")
                           ..printAndFeedPaper(100)
