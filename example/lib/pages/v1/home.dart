@@ -9,6 +9,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
+
   @override
   State<Home> createState() => _HomeState();
 }
@@ -16,6 +17,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   bool permissionStatus = false;
   final iminPrinter = IminPrinter();
+
   @override
   void initState() {
     super.initState();
@@ -23,6 +25,7 @@ class _HomeState extends State<Home> {
   }
 
   int open = 1;
+
   /// 获取媒体文件读写权限
   Future<void> getMediaFilePermission() async {
     Map<Permission, PermissionStatus> statuses =
@@ -70,7 +73,8 @@ class _HomeState extends State<Home> {
                           Fluttertoast.showToast(
                               msg: state['msg'],
                               toastLength: Toast.LENGTH_LONG,
-                              gravity: ToastGravity.BOTTOM, // 消息框弹出的位置
+                              gravity: ToastGravity.BOTTOM,
+                              // 消息框弹出的位置
                               // timeInSecForIos: 1,  // 消息框持续的时间（目前的版本只有ios有效）
                               backgroundColor: Colors.red,
                               textColor: Colors.white,
@@ -98,7 +102,7 @@ class _HomeState extends State<Home> {
                           await iminPrinter.printText('居中',
                               style:
                                   IminTextStyle(align: IminPrintAlign.center));
-                                  await iminPrinter.printAndFeedPaper(100);
+                          await iminPrinter.printAndFeedPaper(100);
                           await iminPrinter.sendRAWDataHexStr("0A");
                         },
                         child: const Text('text alignment'))
@@ -114,7 +118,7 @@ class _HomeState extends State<Home> {
                       onPressed: () async {
                         await iminPrinter.printText('测试字体大小',
                             style: IminTextStyle(fontSize: 25));
-                            await iminPrinter.printAndFeedPaper(100);
+                        await iminPrinter.printAndFeedPaper(100);
                         await iminPrinter.sendRAWDataHexStr("0A");
                       },
                       child: const Text('Text fontSize')),
@@ -123,7 +127,7 @@ class _HomeState extends State<Home> {
                         await iminPrinter.printText('测试打印字体',
                             style: IminTextStyle(
                                 typeface: IminTypeface.typefaceMonospace));
-                                await iminPrinter.printAndFeedPaper(100);
+                        await iminPrinter.printAndFeedPaper(100);
                         await iminPrinter.sendRAWDataHexStr("0A");
                       },
                       child: const Text('Text typeface'))
@@ -152,22 +156,23 @@ class _HomeState extends State<Home> {
                                 fontSize: 25,
                                 // typeface: IminTypeface.typefaceDefault
                                 fontStyle: IminFontStyle.italic));
-                                await iminPrinter.printAndFeedPaper(100);
+                        await iminPrinter.printAndFeedPaper(100);
                         await iminPrinter.sendRAWDataHexStr("0A");
                       },
                       child: const Text('Text style')),
                   ElevatedButton(
                       onPressed: () async {
-                        await iminPrinter.printSingleBitmap(
-                          'https://oss-sg.imin.sg/web/iMinPartner2/images/logo.png',
-                           pictureStyle: IminPictureStyle(
-                              width: 250,
-                              height: 50,
-                            )
-                        );
-                        await iminPrinter.sendRAWDataHexStr("0A");
-                        await iminPrinter.printAndFeedPaper(100);
-                        await iminPrinter.sendRAWDataHexStr("0A");
+                        await iminPrinter
+                          ..printSingleBitmap(
+                              'https://oss-sg.imin.sg/web/iMinPartner2/images/logo.png',
+                              pictureStyle: IminPictureStyle(
+                                width: 250,
+                                height: 50,
+                              ))
+                          ..sendRAWDataHexStr("0A")
+                          ..printAndFeedPaper(100)
+                          ..sendRAWDataHexStr("0A")
+                          ..partialCut();
                       },
                       child: const Text('print singleBitmap'))
                 ],
@@ -244,7 +249,7 @@ class _HomeState extends State<Home> {
                                     IminQrcodeCorrectionLevel.levelH,
                                 qrSize: 4,
                                 align: IminPrintAlign.left));
-                                await iminPrinter.printAndFeedPaper(100);
+                        await iminPrinter.printAndFeedPaper(100);
                         await iminPrinter.sendRAWDataHexStr("0A");
                       },
                       child: const Text('print QrCode')),
@@ -288,7 +293,7 @@ class _HomeState extends State<Home> {
                             style: IminBarCodeStyle(
                                 align: IminPrintAlign.center,
                                 position: IminBarcodeTextPos.textAbove));
-                                await iminPrinter.printAndFeedPaper(100);
+                        await iminPrinter.printAndFeedPaper(100);
                         await iminPrinter.sendRAWDataHexStr("0A");
                       },
                       child: const Text('print barCode')),
@@ -342,7 +347,7 @@ class _HomeState extends State<Home> {
                                 text: 'www.google.com',
                               ),
                               doubleQRSize: 5);
-                              await iminPrinter.printAndFeedPaper(100);
+                          await iminPrinter.printAndFeedPaper(100);
                           await iminPrinter.sendRAWDataHexStr("0A");
                         },
                         child: const Text('print DoubleQR'))
@@ -372,11 +377,10 @@ class _HomeState extends State<Home> {
                   children: [
                     ElevatedButton(
                         onPressed: () async {
-                          open = (open==1?0:1);
-                          await iminPrinter.openLogs(open==1?1:0);
+                          open = (open == 1 ? 0 : 1);
+                          await iminPrinter.openLogs(open == 1 ? 1 : 0);
                         },
                         child: const Text('openLogs')),
-
                   ]),
             ),
           ],
